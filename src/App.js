@@ -13,24 +13,7 @@ class App extends Component {
     loading: false
   };
 
-  // componentDidMount() {
-  //   this.fetchGithubUsers();
-  // };
-
-  // fetchGithubUsers = async () => {
-  //   this.setState({ loading: true });
-
-  //   try {
-  //     const users = await axios.get(
-  //       `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
-  //     );
-  //     this.setState({ users: users.data, loading: false });
-  //   } catch (error) {
-  //     this.setState({ loading: false });
-  //     console.log(error);
-  //   }
-  // };
-
+  // SEARCH GITHUB USERS
   searchUsers = async query => {
     this.setState({ loading: true });
 
@@ -45,13 +28,22 @@ class App extends Component {
     }
   };
 
+  // CLEAR USERS FROM STATE
+  clearUsers = () => this.setState({ users: [], loading: false });
+
   render() {
+    const { users, loading } = this.state;
+
     return (
       <div>
         <Navbar />
         <div className="container">
-          <Search searchUsers={this.searchUsers} />
-          <Users loading={this.state.loading} users={this.state.users} />
+          <Search
+            searchUsers={this.searchUsers}
+            clearUsers={this.clearUsers}
+            showClear={users.length > 0 ? true : false}
+          />
+          <Users loading={loading} users={users} />
         </div>
       </div>
     );

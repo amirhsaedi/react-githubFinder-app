@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const Search = props => {
+const Search = ({ searchUsers, showClear, clearUsers }) => {
     const [text, setText] = useState('');
 
     const onSubmit = event => {
         event.preventDefault();
-        props.searchUsers(text);
+        searchUsers(text);
         setText('');
     };
 
@@ -26,12 +26,15 @@ const Search = props => {
                 value="search"
                 className="btn btn-dark btn-block"
             />
+            {showClear && <button className="btn btn-light btn-block" onClick={clearUsers}>Clear</button>}
         </form>
     );
 };
 
 Search.propTypes = {
-    searchUsers: PropTypes.func.isRequired
+    searchUsers: PropTypes.func.isRequired,
+    clearUsers: PropTypes.func.isRequired,
+    showClear: PropTypes.bool.isRequired
 };
 
 export default Search;
