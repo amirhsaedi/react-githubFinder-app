@@ -13,18 +13,32 @@ class App extends Component {
     loading: false
   };
 
-  componentDidMount() {
-    this.fetchGithubUsers();
-  };
+  // componentDidMount() {
+  //   this.fetchGithubUsers();
+  // };
 
-  fetchGithubUsers = async () => {
+  // fetchGithubUsers = async () => {
+  //   this.setState({ loading: true });
+
+  //   try {
+  //     const users = await axios.get(
+  //       `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+  //     );
+  //     this.setState({ users: users.data, loading: false });
+  //   } catch (error) {
+  //     this.setState({ loading: false });
+  //     console.log(error);
+  //   }
+  // };
+
+  searchUsers = async query => {
     this.setState({ loading: true });
 
     try {
       const users = await axios.get(
-        `https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+        `https://api.github.com/search/users?q=${query}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
       );
-      this.setState({ users: users.data, loading: false });
+      this.setState({ users: users.data.items, loading: false });
     } catch (error) {
       this.setState({ loading: false });
       console.log(error);
@@ -36,7 +50,7 @@ class App extends Component {
       <div>
         <Navbar />
         <div className="container">
-          <Search />
+          <Search searchUsers={this.searchUsers} />
           <Users loading={this.state.loading} users={this.state.users} />
         </div>
       </div>

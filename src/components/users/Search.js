@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const Search = props => {
     const [text, setText] = useState('');
@@ -27,6 +28,10 @@ const Search = props => {
             />
         </form>
     );
+};
+
+Search.propTypes = {
+    searchUsers: PropTypes.func.isRequired
 };
 
 export default Search;
