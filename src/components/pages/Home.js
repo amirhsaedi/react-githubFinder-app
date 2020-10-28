@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 
-import Alert from '../../components/layout/Alert';
-import Search from '../../components/users/Search';
-import Users from '../../components/users/Users';
+import Alert from '../layout/Alert';
+import Search from '../users/Search';
+import Users from '../users/Users';
 
 const Home = () => (
     <Fragment>
